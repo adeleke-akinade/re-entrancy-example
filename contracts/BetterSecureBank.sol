@@ -7,11 +7,13 @@ contract BetterSecureBank is BankInterface {
     mapping(address => uint256) private balances;
     bool private locked;
 
+    /// @inheritdoc BankInterface
     function deposit() external payable {
         require(msg.value >= 1 ether, "Bank: minimum deposit is 1 ether");
         balances[msg.sender] += msg.value;
     }
 
+    /// @inheritdoc BankInterface
     function withdraw() external {
         require(!locked, "Bank: contract is locked");
         locked = true;
@@ -23,10 +25,12 @@ contract BetterSecureBank is BankInterface {
         locked = false;
     }
 
+    /// @inheritdoc BankInterface
     function getBankBalance() external view returns (uint256) {
         return balances[msg.sender];
     }
 
+    /// @inheritdoc BankInterface
     function getContractBalance() external view returns (uint256) {
         return address(this).balance;
     }

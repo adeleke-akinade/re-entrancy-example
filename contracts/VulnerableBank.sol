@@ -6,11 +6,13 @@ import {BankInterface} from "./BankInterface.sol";
 contract VulnerableBank is BankInterface {
     mapping(address => uint256) private balances;
 
+    /// @inheritdoc BankInterface
     function deposit() external payable {
         require(msg.value >= 1 ether, "Bank: minimum deposit is 1 ether");
         balances[msg.sender] += msg.value;
     }
 
+    /// @inheritdoc BankInterface
     function withdraw() external {
         uint256 _balance = balances[msg.sender];
         require(_balance >= 1 ether, "Bank: insufficient funds");
@@ -19,10 +21,12 @@ contract VulnerableBank is BankInterface {
         balances[msg.sender] = 0; // This should be set to zero before sending the funds to the caller.
     }
 
+    /// @inheritdoc BankInterface
     function getBankBalance() external view returns (uint256) {
         return balances[msg.sender];
     }
 
+    /// @inheritdoc BankInterface
     function getContractBalance() external view returns (uint256) {
         return address(this).balance;
     }
