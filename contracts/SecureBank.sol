@@ -13,6 +13,7 @@ contract SecureBank is BankInterface {
     }
 
     /// @inheritdoc BankInterface
+    /// @dev this updates the balance before sending the funds meaning it is not vulnerable to a re-entrancy exploit.
     function withdraw() external {
         uint256 _balance = balances[msg.sender];
         require(_balance >= 1 ether, "Bank: insufficient funds");

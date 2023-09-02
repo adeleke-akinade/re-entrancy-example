@@ -13,6 +13,7 @@ contract VulnerableBank is BankInterface {
     }
 
     /// @inheritdoc BankInterface
+    /// @dev this is vulnerable to a re-entrancy exploit because the callers balance is updated after control is passed to them.
     function withdraw() external {
         uint256 _balance = balances[msg.sender];
         require(_balance >= 1 ether, "Bank: insufficient funds");
