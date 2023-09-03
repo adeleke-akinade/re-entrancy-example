@@ -16,7 +16,7 @@ contract BetterSecureBank is BankInterface {
     /// @inheritdoc BankInterface
     /// @dev this locks the function while it is being executed meaning it cannot be re-entered and is not vulnerable to the re-entrancy exploit.
     function withdraw() external {
-        require(!locked, "Bank: contract is locked");
+        require(!locked, "Bank: withdraw function is locked");
         locked = true;
         uint256 _balance = balances[msg.sender];
         require(_balance >= 1 ether, "Bank: insufficient funds");
